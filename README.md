@@ -1,103 +1,49 @@
-
-
-Overview
+Visão Geral
 --------
-This is a workshop meant to start building hands-on experience with AWS CloudFormation.  
+Este é um workshop destinado a começar a criar experiência prática com o AWS CloudFormation.
 
-The workshop proposes an initial, example CloudFormation template that describes 
-an Amazon Simple Storage Service (S3) bucket, and then guides the user to create a
-CloudFormation stack with that template: the stack will create the bucket on the user's behalf.  
+O workshop propõe um modelo inicial do CloudFormation que descreve um bucket do Amazon Simple Storage Service (S3) e, em seguida, orienta o usuário para criar uma stack do CloudFormation com esse modelo: a stack criará o bucket para o usuário.
 
-The workshop will then guide the user on interactively adding configuration values to the template, 
-and to apply changes to the stack.
+Em seguida, o workshop orientará o usuário sobre a adição interativa de valores de configuração ao modelo e para aplicar alterações à stack.
 
-Before getting started, make sure you go through the following
-prerequisites:
+Antes de começar, certifique-se de passar pelos seguintes pré-requisitos:
 
-- You will need an AWS account to run the workshop demo
+- Você precisará de uma conta da AWS para executar a demonstração do workshop
 
-- Familiarize with [AWS CloudFormation](https://aws.amazon.com/cloudformation/)
+- Familiarize-se com [AWS CloudFormation](https://aws.amazon.com/cloudformation/)
 
-- Familiarize with the [CloudFormation User
-  Guide](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/Welcome.html)
-  and keep it handy as a reference
+- Familiarize-se com o [Guia de Usuário do CloudFormation](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/Welcome.html) e mantenha-o à mão como referência
 
-- Familiarize with JSON and YAML [CloudFormation template
-  formats](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-formats.html)
+- Familiarize-se com o JSON e YAML [CloudFormation template formats](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-formats.html)
 
-- Familiarize with the [template anatomy](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-anatomy.html) structure
+- Familiarize-se com a estrutura dos templates [Template Anatomy](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-anatomy.html)
 
-- Familiarize with the [Template Reference](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-reference.html)and keep it handy in your bookmarks as you will need it when editing your templates
+- Familiarize-se com o [Template Reference](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-reference.html) e mantenha-o à mão em seus favoritos, pois você precisará dele ao editar seus modelos
 
 
-Let's get started!  Follow steps below:
+Vamos começar! Siga as etapas abaixo:
 
-1. You will need a working copy of the initial CloudFormation
-   template: copy `example-s3-bucket-initial.template` into
-   `example-s3-bucket.template`.  Please note that the
-   `example-s3-bucket.template` file you will create is listed in the
-   `.gitignore` file, that should be in the same directory of the
-   initial template: the working copy of the template for this
-   workshop will then be excluded from a `git` scope
+1. Você precisará de uma cópia de trabalho do modelo inicial do CloudFormation: copie `example-s3-bucket-initial.template` para `example-s3-bucket.template`.  Por favor, note que o `example-s3-bucket.template` que você criará está listado no arquivo `.gitignore`, que deve estar no mesmo diretório do modelo inicial: a cópia de trabalho do template para este workshop será então excluída do escopo `git`.
 
-2. The working copy of the initial example template, that you have
-   made on the previous step, should only have an [S3
-   bucket](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket.html)
-   resource described with code, and no properties for the bucket are
-   specified yet on the example template.  Take a look at the
-   template, and familiarize with its structure and content: use the
-   [CloudFormation template
-   formats](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-formats.html)
-   and the [template
-   anatomy](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-anatomy.html)
-   pages in the AWS documentation as a reference.  When you are ready,
-   go to the next step
+2. A cópia de trabalho do modelo de exemplo inicial, que você fez na etapa anterior, só deve ter um recurso [S3 bucket](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket.html) descrito com código, e nenhuma propriedade para o bucket é especificado ainda no modelo de exemplo. Dê uma olhada no modelo e familiarize-se com sua estrutura e conteúdo: use o [CloudFormation template formats](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-formats.html) e o [template anatomy](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-anatomy.html) páginas na documentação da AWS como referência. Quando você estiver pronto, vá para a próxima etapa.
 
-3. [Log in to the CloudFormation
-   Console](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cfn-console-login.html).
-   This workshop uses the Console to create and update stacks: for a
-   programmatic approach instead, you can use the [AWS Command Line
-   Interface
-   (CLI)](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cfn-using-cli.html)
-   or an [AWS SDK](https://aws.amazon.com/getting-started/tools-sdks/)
-   of your choice
+3. [Faça login no CloudFormation Console](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cfn-console-login.html).
+   Este workshop usa o Console para criar e atualizar stacks: para um em vez disso, você pode usar o [AWS Command Line Interface (CLI)](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cfn-using-cli.html) ou o [AWS SDK](https://aws.amazon.com/getting-started/tools-sdks/) de sua escolha.
 
-4. [Create a stack with the
-   Console](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cfn-console-create-stack.html).
-   When [choosing a stack
-   template](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cfn-using-console-create-stack-template.html),
-   you can choose between the `Amazon S3 URL` or the `Upload a
-   template file` option.  First, familiarize with both options, and
-   understand where and when you could use one versus the other.  For
-   this workshop demo, you will be using the latter.  Next, initiate
-   the stack creation process: choose to upload your working copy of
-   the template and, when prompted to specify a stack name, input
-   `my-example-s3-bucket`.  Follow directions in the console and then
-   choose to create the stack when ready
+4. [Crie uma stack através do Console](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cfn-console-create-stack.html).
+   Quando [escolhendo um template](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cfn-using-console-create-stack-template.html),
+   você pode escolher entre a opção `Amazon S3 URL` ou o `Upload um arquivo de Template`.  Primeiro, familiarize-se com as duas opções e entenda onde e quando você poderia usar um contra o outro. Para esta demonstração do workshop, você estará usando o último. Em seguida, inicie o processo de criação de stacks: escolha carregar sua cópia de trabalho do o modelo e, quando solicitado a especificar um nome de stack, insira `my-example-s3-bucket`.  Siga as instruções no console e depois opte por criar a stack quando estiver pronto.
 
-5. In the CloudFormation Console, wait until the stack reaches the
-   `CREATE_COMPLETE` status: the `Events` pane for the stack you are
-   creating shows resource creation steps (in this case, your S3
-   bucket)
+1. No Console do CloudFormation, aguarde até que a stack atinja o `CREATE_COMPLETE` status: the `Events` painel para a stack que você está criando mostra etapas de criação de recursos (neste caso, seu Bucket S3)
 
-6. You will now start adding properties to your bucket.  You will want
-   the bucket name to follow this pattern:
+2. Agora você começará a adicionar propriedades ao seu bucket. Você vai querer o nome do bucket para seguir este padrão:
    `my-example-bucket-AWS_REGION_NAME-AWS_ACCOUNT_ID-ENVIRONMENT_NAME`.
-   The first two portions of the name can be derived automatically by
-   using the `AWS::Region` and `AWS::AccountId` [Pseudo
+   As duas primeiras partes do nome podem ser derivadas automaticamente usando o `AWS::Region` and `AWS::AccountId` [Pseudo
    Parameters](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/pseudo-parameter-reference.html).
-   The last portion, the environment name, will be an input parameter:
-   this way, you could reuse the same template to predictibly create
-   and maintain an S3 bucket with the same settings across all of your
-   environments (such as Development, Quality Assurance, Production).
-   Let's start with adding, to your working copy of the template, a
-   main section called
-   [Parameters](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/parameters-section-structure.html),
-   where you specify three predefined values, `dev`, `qa` and `prod`,
+   A última parte, o nome do ambiente, será um parâmetro de entrada: dessa forma, você pode reutilizar o mesmo modelo para criar previsivelmente e mantenha um bucket do S3 com as mesmas configurações em todos os seus ambientes (como Desenvolvimento, Garantia de Qualidade, Produção). Vamos começar adicionando, à sua cópia de trabalho do modelo, um seção principal chamada [Parameters](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/parameters-section-structure.html), onde você especifica três valores predefinidos, `dev`, `qa` and `prod`,
    and let's set `dev` as the default value (you can add it after the
-   `Description` section: for more information, see [Template
-   Anatomy](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-anatomy.html)
-   in the AWS documentation):
+   `Description` section: for more information, see [Template Anatomy](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-anatomy.html)
+   in the AWS documentation:
 
        Parameters:
          EnvironmentName:
@@ -109,108 +55,45 @@ Let's get started!  Follow steps below:
            Description: Specify a value for the environment name.
            Type: String
 
-7. Next, let's go ahead and locate the block in the `Resources`
-   section that starts with `S3Bucket`: this is the Logical ID of your
-   bucket.  A Logical ID is used to reference resources in a template:
-   for more information, see
-   [Resources](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/resources-section-structure.html)
-   in the AWS documentation.  You will need to add the `Properties`
-   section and specify the [property for the bucket
-   name](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket.html#cfn-s3-bucket-name).
-   To implement the pattern for the bucket name mentioned on the
-   previous step, you will use
-   [Fn::Sub](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-sub.html),
-   that is an [intrinsic
-   function](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/resources-section-structure.html)
-   you can use reference an element such as a parameter
-   (`EnvironmentName`) and to compose a string at the same time.
-   Please note you can also use the
-   [Ref](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-ref.html)
-   intrinsic function to reference e.g. a parameter on the same
-   template, and in this case you are using `Fn::Sub` to also compose
-   a string); for more information, see [Intrinsic Function
-   Reference](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference.html).
-   Update your working copy of the template, for the `S3Bucket`
-   resource block to look as follows (please note: the example below
-   uses the `!Sub` short form as opposed to `Fn::Sub` - see the
-   relevant documentation page for more details on this):
+3. Em seguida, vamos em frente e localizar o bloco nos `Resources` seção que começa com `S3Bucket`: este é o ID lógico do seu bucket. Um ID lógico é usado para fazer referência a recursos em um modelo: para obter mais informações, consulte [Resources](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/resources-section-structure.html) na documentação da AWS. Você precisará adicionar a seção `Properties` e especificar a [propriedade para o nome do bucket](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket.html#cfn-s3-bucket-name). Para implementar o padrão para o nome do bucket mencionado na etapa anterior, você usará [Fn::Sub](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-sub.html),
+   que é uma [função intrinseca](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/resources-section-structure.html) você pode usar referência a um elemento, como um parâmetro (`EnvironmentName`) e para compor uma string ao mesmo tempo.
+   Por favor, note que você também pode usar o [Ref](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-ref.html)
+   função intrínseca para referenciar, por exemplo, um parâmetro no mesmo modelo e, neste caso, você está usando `Fn::Sub` para também compor uma string; para obter mais informações, consulte [Intrinsic Function Reference](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference.html.
+   Atualize sua cópia de trabalho do modelo, para o `S3Bucket` bloco de recursos para ter a seguinte aparência (observe: o exemplo abaixo usa o `! Sub` forma curta em oposição a `Fn። Sub` - veja uma página de documentação relevante para obter mais detalhes sobre isso):
 
          S3Bucket:
            Type: AWS::S3::Bucket
            Properties:
              BucketName: !Sub 'my-example-bucket-${AWS::Region}-${AWS::AccountId}-${EnvironmentName}'
 
-8. Select the stack you created, and choose `Update`.  Next, choose to
-   replace the existing template, upload the new copy of the template
-   and choose `Next`.  You will now have your first parameter on the
-   next screen!  Choose `dev` (that should be the default selection)
-   and follow steps until you get to the last screen where you create
-   the stack: locate the `Change set preview` section on the bottom of
-   the page, and wait until the `Changes` section populates: you
-   should see a `Modify` action for the `S3Bucket` Logical ID (the
-   logical name of the bucket you declared in the Resources section of
-   the template), and a value of `true` for the `Replacement` column.
-   Changes you have made (new bucket name in this case) require a
-   replacement of the resource: since the existing bucket is empty,
-   when you will choose to update the stack the operation should
-   complete successfully (a new bucket is created and the previous one
-   will be deleted - you cannot delete a bucket with objects in it).
-   For more information on updates and properties, see [Update
-   Behaviors of Stack
-   Resources](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-update-behaviors.html)
-   in the AWS documentation.  Choose to update the stack and observe
-   changes in the `Events` pane on the Console, then when the stack is
-   in the `UPDATE_COMPLETE` state, go to the next step
+4. Selecione a stack que você criou e escolha `Atualizar`. Em seguida, opte por substitua o modelo existente, carregue a nova cópia do modelo
+ e escolha `Next`. Agora você terá seu primeiro parâmetro na próxima tela! Escolha `dev` (essa deve ser a seleção padrão) e siga as etapas até chegar à última tela em que você cria a stack: localize a seção “Alterar visualização do conjunto” na parte inferior do a página e aguarde até que a seção `Alterações` seja preenchida: você deve ver uma ação `Modificar` para o ID lógico `S3Bucket` (o nome lógico do intervalo que você declarou na seção Recursos do
+ o modelo) e um valor de `true` para a coluna `Replacement`. As alterações feitas (novo nome do bucket neste caso) exigem um substituição do recurso: como o intervalo existente está vazio, quando você optar por atualizar a stack, a operação deve concluído com sucesso (um novo bucket é criado e o anterior será excluído - você não pode excluir um bucket com objetos nele). Para obter mais informações sobre atualizações e propriedades, consulte [Update Behaviors of Stack Resources](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-update-behaviors.html) na documentação da AWS. Opte por atualizar a stack e observar alterações no painel `Events` no Console e, em seguida, quando a stack estiver no estado `UPDATE_COMPLETE`, vá para a próxima etapa.
 
-9. You will now configure the default encryption for your S3 bucket by
-   specifying the [relevant
-   property](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket.html#cfn-s3-bucket-bucketencryption)
-   for your resource in your template.  With this demo, you will
-   configure the Amazon S3-managed keys (SSE-S3) encryption.  Add the
-   following snippet to the `Properties` section of your S3 bucket,
-   then use the updated template to update your existing stack as you
-   did before (when the stack update is complete, you can navigate to
-   the S3 page in the Console, choose the bucket you created with
-   CloudFormation and check changes you made and applied):
+5. Agora você configurará a criptografia padrão para o bucket do S3 por especificando o [relevant property](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket.html#cfn-s3-bucket-bucketencryption) para seu recurso em seu modelo. Com esta demonstração, você configure a criptografia de chaves gerenciadas pelo Amazon S3 (SSE-S3). Adicione o seguinte snippet para a seção `Propriedades` do seu bucket do S3, em seguida, use o modelo atualizado para atualizar sua stack existente conforme você antes (quando a atualização da stack estiver concluída, você pode navegar para a página S3 no Console, escolha o bucket que você criou com CloudFormation e verificações de alterações feitas e aplicadas):
 
              BucketEncryption:
                ServerSideEncryptionConfiguration:
                  - ServerSideEncryptionByDefault:
                      SSEAlgorithm: AES256
 
-10. On this step, you will enable the [property for the versioning
-    configuration](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket.html#cfn-s3-bucket-versioning).
-    Try this yourself this time, it's easy!  You will need to specify
-    two lines:
+6.  Nesta etapa, você habilitará o [property for the versioning configuration](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket.html#cfn-s3-bucket-versioning).
+    Experimente isso sozinho desta vez, é fácil! Você precisará especificar duas linhas:
 
-      - the first line is the [name of the relevant
-        property](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket.html#cfn-s3-bucket-versioning),
+      - a primeira linha é [nome da propriedade relevante](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket.html#cfn-s3-bucket-versioning),
 
-      - for the second line, you will need to look at [the relevant
-        property for versioning
-        configuration](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-versioningconfig.html)
+      - para a segunda linha, você precisará olhar [a propriedade relevante para configuração de controle de versão](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-versioningconfig.html)
 
-    Update your template with the new configuration, and then update
-    the stack when ready!
+    Atualize seu modelo com a nova configuração e atualize a stack quando estiver pronto!
 
-11. Next, let's set up the [property for the object life cycle
-    configuration](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket.html#cfn-s3-bucket-lifecycleconfig).
-    When you configure life cycle of objects in your S3 bucket, you
-    set up one or more `LifecycleConfiguration`
-    [rules](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-lifecycleconfig.html):
-    with this demo, you will set up an example
-    [rule](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-lifecycleconfig-rule.html)
-    such as:
+7.  Em seguida, vamos configurar a propriedade [para a configuração do ciclo de vida do objeto](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket.html#cfn-s3-bucket-lifecycleconfig).
+    Ao configurar o ciclo de vida de objetos no bucket do S3, você configura um ou mais `LifecycleConfiguration` [rules](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-lifecycleconfig.html):
+    com esta demonstração, você configurará um exemplo [rule](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-lifecycleconfig-rule.html) como a:
 
-      - Move all versioned objects (including non-current versions) in
-        the bucket to [Amazon
-        Glacier](https://aws.amazon.com/glacier/) after 7 days of
-        creation, and
+      - Mover todos os objetos com controle de versão (incluindo versões não atuais) no bucket para [Amazon Glacier](https://aws.amazon.com/glacier/) adepois de 7 dias de criação, e
+      - excluir todos os objetos com mais de um ano
 
-      - delete all objects older than a year
-
-    Let's try this: update your template as follows, and then update
-    the stack when ready!
+    Vamos tentar isso: atualize seu modelo da seguinte forma e, em seguida, atualize a pilha quando estiver pronta!
 
               LifecycleConfiguration:
                 Rules:
@@ -224,15 +107,7 @@ Let's get started!  Follow steps below:
                       - StorageClass: GLACIER
                         TransitionInDays: 7
 
-12. You will now go ahead and add
-    [tags](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket.html#cfn-s3-bucket-tags)
-    to your bucket: `BusinessUnitName` and `EnvironmentName`, whose
-    values you want to be configurable as parameters.  You already
-    have the `EnvironmentName` parameter: let's start with creating
-    another parameter, `BusinessUnitName`, and add a few input
-    validation controls to it (for more information, see
-    [Parameters](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/parameters-section-structure.html)
-    in the AWS documentation):
+8.  Agora você seguirá em frente e adicionará [tags](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket.html#cfn-s3-bucket-tags) para o seu bucket: `BusinessUnitName` e `EnvironmentName`, cujo valores que você deseja que sejam configuráveis como parâmetros. Você já tem o parâmetro `EnvironmentName`: vamos começar com a criação outro parâmetro, `BusinessUnitName`, e adicione algumas entradas controles de validação para ele (para obter mais informações, consulte [Parameters](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/parameters-section-structure.html) na documentação AWS):
 
           BusinessUnitName:
             AllowedPattern: ^[a-zA-Z0-9_-]*$
@@ -244,12 +119,8 @@ Let's get started!  Follow steps below:
             MinLength: 1
             Type: String
 
-13. Let's continue to update the template and add the `Tags` property
-    to bucket properties.  You will use the `Ref` intrinsic function
-    this time to reference the `BusinessUnitName` and
-    `EnvironmentName` input parameters; add the following example
-    lines to your template, and update the stack with the updated
-    template when ready:
+9. Vamos continuar atualizando o modelo e adicionando a propriedade `Tags` para propriedades do balde. Você usará a função intrínseca `Ref`
+ desta vez para fazer referência ao `BusinessUnitName` e `EnvironmentName` parâmetros de entrada; adicione o exemplo a seguir linhas para o modelo e atualize a stack com o atualizado modelo quando estiver pronto:
 
               Tags:
                 - Key: BusinessUnitName
@@ -257,25 +128,15 @@ Let's get started!  Follow steps below:
                 - Key: EnvironmentName
                   Value: !Ref 'EnvironmentName'
 
-14. You will now add a new resource: a [bucket
-    policy](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-policy.html),
-    where you will add a statement to deny insecure connections (i.e.,
-    non-https) to the bucket.  For more information on bucket and user
-    policies for Amazon S3, see [Access Policy Language
-    Overview](https://docs.aws.amazon.com/AmazonS3/latest/dev/access-policy-language-overview.html)
-    in the AWS documentation.  The bucket policy will reference the bucket you
-    created earlier in two places, by using:
+10. Agora você adicionará um novo recurso: a [bucket policy](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-policy.html), onde você adicionará uma instrução para negar conexões inseguras (ou seja, não https) para o bucket. Para obter mais informações sobre bucket e usuário políticas para o Amazon S3, consulte [Access Policy Language Overview](https://docs.aws.amazon.com/AmazonS3/latest/dev/access-policy-language-overview.html) na documentação da AWS. A política de bucket fará referência ao bucket que você criou anteriormente em dois lugares, usando:
 
     - `Ref` to attach the policy to the existing bucket, and
 
     - `Fn::Sub` as an example of composing the [Amazon Resource Name,
        (ARN)](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html)
-       of the bucket that, in turn, you will concatenate to the `/*`
-       string to complete a value you indicate for the `Resource`
-       block
+       do bucket que, por sua vez, você concatenará ao `/*` string para completar um valor que você indica para o `Resource` bloco
 
-    Add the following example lines to your template, and update the
-    stack with the updated template when ready:
+    Adicione as seguintes linhas de exemplo ao seu modelo e atualize o empilhe com o modelo atualizado quando estiver pronto:
 
           S3BucketPolicy:
             Type: AWS::S3::BucketPolicy
@@ -293,5 +154,4 @@ Let's get started!  Follow steps below:
                     Sid: DenyInsecureConnections
                 Version: '2012-10-17'
 
-15. At the end of this workshop, terminate the stack to delete
-    resources (bucket and bucket policy) you created with it
+11.  No final deste workshop, encerre a stack para excluir recursos (política de bucket e bucket) que você criou com ele.
